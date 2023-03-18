@@ -2,6 +2,7 @@ import subprocess # importing the subprocess library used to make new processes,
 import sys # importing the sys library used to access functions and variables which they can make interactable with Python interpeter
 import os # importing the os library used to make code interactable with user operating system
 import shutil # importing the shutil library used to execute tasks like deleting elements from PC
+# More information about libraries can be found at https://www.python.org
 # Path of Portal 2 needed to function with other code lines
 portal2_path = "C:\\Steam\\steamapps\\common\\Portal 2"  
 # Game folders to delete by the code, needed to function with other code lines
