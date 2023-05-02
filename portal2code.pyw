@@ -1,41 +1,33 @@
-import os
 import threading
-import urllib.request
-
-def check_updates():
-    url = 'https://api.github.com/repos/EuroSzymon/Portal-2-File-Deletion-Tool/releases/latest'
-    with urllib.request.urlopen(url) as response:
-        data = response.read().decode()
-        import json
-        release = json.loads(data)
-    latest_version = release['tag_name']
-    if latest_version != 'v1.0.5':
-        messagebox.showinfo("Info", "New version available! Please visit Github to download.")
-
-
+import tkinterweb as tkweb
+import os
 from tkinter import Tk, Label, Button, messagebox, Menu
+import sv_ttk
 
 root = Tk()
 root.title('Portal 2 Audio Fix Tool')
 root.geometry('600x400')
 
-
 def show_settings():
     messagebox.showinfo("Info", "Settings not available in this version.")
 
+def open_webpage():
+    web_frame = tkweb.Frame(root, width=600, height=300, background="white")
+    web_frame.pack()
+    web_frame.load("https://github.com/EuroSzymon/Portal-2-File-Deletion-Tool")
 
 menu_bar = Menu(root)
 root.config(menu=menu_bar)
 
 update_menu = Menu(menu_bar, tearoff=0)
-update_menu.add_command(label='Check updates')
+update_menu.add_command(label='Check updates', command=open_webpage)
 menu_bar.add_cascade(label='Updates', menu=update_menu)
 
 settings_menu = Menu(menu_bar, tearoff=0)
 settings_menu.add_command(label='Settings', command=show_settings)
 menu_bar.add_cascade(label='Settings', menu=settings_menu)
 
-version_label = Label(root, text='v1.0.5', fg='gray')
+version_label = Label(root, text='v1.0.6', fg='gray')
 version_label.pack(side='bottom')
 
 
@@ -63,5 +55,6 @@ def remove_folders(portal2_path, folders):
 
 start_button = Button(root, text='Start', width=8, command=start_action)
 start_button.pack(pady=20)
+sv_ttk.set_theme ("dark")
 
 root.mainloop()
