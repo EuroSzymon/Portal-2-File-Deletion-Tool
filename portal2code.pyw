@@ -9,7 +9,7 @@ root.title('Portal 2 Audio Fix Tool')
 root.geometry('600x400')
 root.config(bg='gray10')
 
-# Add title label
+
 title_label = ttk.Label(root, text='A tool for removing the Portal 2 sound files', background='gray10', foreground='white')
 title_label.pack(pady=20)
 
