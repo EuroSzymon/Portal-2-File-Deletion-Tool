@@ -1,39 +1,26 @@
-import os
 import threading
-from tkinter import Tk, Label, Button, Widget, messagebox, Menu
 import webbrowser
-from tkinter import ttk
+import os
+from tkinter import Tk, Label, Menu, messagebox, ttk
+import customtkinter as ctk
 
-root = Tk()
-root.title('Portal 2 Audio Fix Tool')
-root.geometry('600x400')
-root.config(bg='gray10')
+app = ctk.CTk()
+app.geometry("1200x600")
+app.title("Portal 2 File Deletion Tool")
+ctk.set_appearance_mode("dark")
 
-
-title_label = ttk.Label(root, text='A tool for removing the Portal 2 sound files', background='gray10', foreground='white')
+title_label = ctk.CTkLabel(master=app, text="A tool for removing the Portal 2 sound files", text_color="gray")
 title_label.pack(pady=20)
 
-def download_action():
-    messagebox.showinfo("Opening the browser...", "Please wait patiently. Depending on your hardware and on the internet it may be take long to load or may be take very fast to load. When you close this window or you click the OK button, the browser will be loaded.")
-    url = "https://github.com/EuroSzymon/Portal-2-File-Deletion-Tool"
-    webbrowser.open_new(url)
-
-menu_bar = Menu(root, bg='gray20', fg='white')
-root.config(menu=menu_bar)
-
-update_menu = Menu(menu_bar, tearoff=0, bg='gray20', fg='white')
-update_menu.add_command(label='Download or Update', command=download_action)
-menu_bar.add_cascade(label='Updates', menu=update_menu)
-
-version_label = ttk.Label(root, text='v1.0.6', background='gray10', foreground='gray80')
+version_label = ctk.CTkLabel(master=app, text="v1.0.8", text_color="gray")
 version_label.place(relx=0.5, rely=1.0, anchor='s')
 
-start_button = ttk.Button(root, text='Start')
+start_button = ctk.CTkButton(master=app, text="Start", corner_radius=8)
 start_button.pack(pady=10)
 
 def start_action():
     if messagebox.askquestion("Confirm", "Do you want to delete game folders?") == "yes":
-        portal2_path = "C:\\Steam\\steamapps\\common\\Portal 2"
+        portal2_path = "C:/Steam/steamapps/common/Portal 2"
         folders = ["portal2", "sdk_content", "steam_input", "update"]
         if not os.path.exists(portal2_path):
             messagebox.showerror("Error", "Portal 2 is not installed.")
@@ -51,7 +38,35 @@ def remove_folders(portal2_path, folders):
             os.system(f"rmdir /s /q \"{path}\"")
     messagebox.showinfo("Info", "Folders have been successfully deleted.")
 
+def open_browser():
+    url = "https://github.com/EuroSzymon/Portal-2-File-Deletion-Tool"
+    webbrowser.open_new_tab(url)
+browser_button = ctk.CTkButton(master=app, text="Open main GitHub repository", corner_radius=8)
+browser_button.pack(pady=10)
+browser_button.configure(command=open_browser)
+def open_browser():
+    url = "https://github.com/EuroSzymon/Portal-2-File-Deletion-Tool/blob/normal/LICENSE"
+    webbrowser.open_new_tab(url)
+browser_button = ctk.CTkButton(master=app, text="App license info", corner_radius=8)
+browser_button.pack(pady=10)
+browser_button.configure(command=open_browser)
+def open_browser():
+    url = "https://github.com/EuroSzymon/Portal-2-File-Deletion-Tool/releases"
+browser_button = ctk.CTkButton(master=app, text="GitHub releases tab", corner_radius=8)
+browser_button.pack(pady=10)
+browser_button.configure(command=open_browser)
+warning_label = ctk.CTkLabel(master=app, text="Keep in mind that feature requests are not accepted. Internet connection is required.",corner_radius=8, text_color="red")
+warning_label.pack(pady=10)
+about_label = ctk.CTkLabel(master=app, text="About this software: Portal 2 File Deletion Tool is a software supposed to fix the missing sound issue in Portal 2.",corner_radius=8, text_color="gray")
+about_label.pack(pady=10)
+about_label = ctk.CTkLabel(master=app, text="User is supposed after deletion process verify game integrity on Steam manually.",corner_radius=8, text_color="gray")
+about_label.pack(pady=10)
+about_label = ctk.CTkLabel(master=app, text="The development of this app is running and app is open-source so everyone can contribute.",corner_radius=8, text_color="gray")
+about_label.pack(pady=10)
+about_label = ctk.CTkLabel(master=app, text="If you want to support this project,",corner_radius=8, text_color="gray")
+about_label.pack(pady=10)
+about_label = ctk.CTkLabel(master=app, text="consider contributing into code of the program. The software is not supposed to be a tool to delete everything on a computer and it's not very recommended to modify software in that way.",corner_radius=8, text_color="gray")
+about_label.pack(pady=10)
 start_button.configure(command=start_action)
 
-root.mainloop()
-
+app.mainloop()
